@@ -132,7 +132,8 @@ class Stats:
 
     @property
     def initiative(self) -> int: #TODO: different for PCs and NPCs -- this is correct for NPCs, for PCs it's 0 + other values
-        return (self._char.attributes.dex_base.value + self._char.attributes.ins_base.value) // 2  #TODO: account for armor penalties
+        return 10
+        #return (self._char.attributes.dex_base.value + self._char.attributes.ins_base.value) // 2  #TODO: account for armor penalties
 
 
 class Equipment:
@@ -218,7 +219,6 @@ class PlayerCharacter(Character):
             for pClass, classLevel in self.classes.items():
                 report += f"\n\t{pClass.name} L{classLevel}"
         return report
-
 
 
 class NonPlayerCharacter(Character):
