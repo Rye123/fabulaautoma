@@ -2,7 +2,10 @@ import unittest
 from lib.character import PlayerCharacter
 from lib.playerclass import *
 
+
 class TestPlayerCharacter(unittest.TestCase):
+    """ Test the computation of stats, based on attributes and classes. """
+
     def test_lirithid(self):
         lirithid = PlayerCharacter("Lirithid", 10, 6, 10, 6, 10)
         lirithid.player_classes += [ClassEntropist(6), ClassChimerist(3), ClassWeaponmaster(1)]

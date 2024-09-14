@@ -1,3 +1,26 @@
+"""
+This file contains all possible player classes.
+
+For IDE ease, each class follows the following syntax:
+class Class{CLASS_NAME}(PlayerClass):
+    def __init__(self, level: int):
+        super().__init__("{CLASS_NAME}",
+                         level,
+                         "{CLASS_DESCRIPTION}"
+                        )
+    def apply_stats(self, char: PlayerCharacter):
+        # Here, we apply the necessary stats on the player character.
+        # This includes iterating through any skills the character has. (Not implemented)
+
+In the future, since in Fabula some classes have entire systems, the respective class will
+contain the necessary logic. The way this is currently coded is to (hopefully) enable easy extension for
+the various player classes, instead of forcing all that logic on the PlayerCharacter class.
+
+For instance, the `ClassEntropist` class doesn't need to track arcana, but the `ClassArcanist` class probably does.
+The logic for all that will hence be encapsulated entirely within the `ClassArcanist` class.
+"""
+
+
 from lib.character import PlayerClass, PlayerCharacter
 
 
