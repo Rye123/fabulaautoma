@@ -3,7 +3,6 @@ from enum import IntEnum
 from typing import List, Union, Dict
 from .dice import Dice
 from .item import Item, Armor, Weapon, Shield
-from .playerclass import PlayerClass, PlayerClassBenefit
 
 class Trait:
     def __init__(self, name: str, desc: str):
@@ -30,6 +29,7 @@ class Attributes:
         except ValueError as e:
             raise ValueError("Attributes.__init__: Invalid value given as dice size, expected 6, 8, 10, 12, or 20.")
         self.status_effects = []
+        self.dex_bonus = self.ins_bonus = self.mgt_bonus = self.wlp_bonus = 0
 
     @property
     def dex_eff(self) -> Dice:
@@ -37,7 +37,7 @@ class Attributes:
         for fx in self.status_effects:
             if fx in [StatusEffect.ENRAGED, StatusEffect.SLOW]:
                 cur_dex = cur_dex.get_next_lower()
-        return cur_dex
+        return cur_dex + self.dex_bonus
 
     @property
     def ins_eff(self) -> Dice:
@@ -45,7 +45,7 @@ class Attributes:
         for fx in self.status_effects:
             if fx in [StatusEffect.DAZED, StatusEffect.ENRAGED]:
                 cur_ins = cur_ins.get_next_lower()
-        return cur_ins
+        return cur_ins + self.ins_bonus
 
     @property
     def mgt_eff(self) -> Dice:
@@ -53,7 +53,7 @@ class Attributes:
         for fx in self.status_effects:
             if fx in [StatusEffect.POISONED, StatusEffect.WEAK]:
                 cur_mgt = cur_mgt.get_next_lower()
-        return cur_mgt
+        return cur_mgt + self.mgt_bonus
 
     @property
     def wlp_eff(self) -> Dice:
@@ -61,58 +61,24 @@ class Attributes:
         for fx in self.status_effects:
             if fx in [StatusEffect.POISONED, StatusEffect.SHAKEN]:
                 cur_wlp = cur_wlp.get_next_lower()
-        return cur_wlp
+        return cur_wlp + self.wlp_bonus
 
 
 class Stats:
-    def __init__(self, character: 'Character'):
+    class Rituals:
+        def __init__(self):
+            self.arcanism = self.chimerism = self.elementalism = False
+            self.entropism = self.ritualism = self.spiritism = False
+
+    def __init__(self):
         self.hp = self.mp = self.ip = 0
-        self._char = character
-
-    @property
-    def hp_max(self) -> int:
-        c = self._char
-        mgt = c.attributes.mgt_base.value
-
-        # PCs and NPCs have different computations.
-        if isinstance(c, PlayerCharacter):
-            class_bonus = 0
-            for benefit in c._get_class_benefits():  #TODO: shitty design, should change PC and NPC to be composition rather than inheritance
-                if benefit == PlayerClassBenefit.HP_MAX_BONUS_5:
-                    class_bonus += 5
-            return c.level + (5 * mgt) + class_bonus
-        else:
-            return (2 * c.level) + (5 * mgt)
-
-    @property
-    def mp_max(self) -> int:
-        c = self._char
-        wlp = c.attributes.wlp_base.value
-
-        # PCs and NPCs have different computations.
-        if isinstance(c, PlayerCharacter):
-            class_bonus = 0
-            for benefit in c._get_class_benefits():  #TODO: shitty design, should change PC and NPC to be composition rather than inheritance
-                if benefit == PlayerClassBenefit.MP_MAX_BONUS_5:
-                    class_bonus += 5
-            return c.level + (5 * wlp) + class_bonus
-        else:
-            return (2 * c.level) + (5 * wlp)
-
-    @property
-    def ip_max(self) -> int:
-        #TODO do for NPCs and other
-        c = self._char
-
-        # PCs and NPCs have different computations.
-        if isinstance(c, PlayerCharacter):
-            class_bonus = 0
-            for benefit in c._get_class_benefits():  #TODO: shitty design, should change PC and NPC to be composition rather than inheritance
-                if benefit == PlayerClassBenefit.IP_MAX_BONUS_2:
-                    class_bonus += 2
-            return 6 + class_bonus
-        else:
-            return 6
+        self.hp_max = self.mp_max = self.ip_max = 0
+        self.initiative = 0
+        self.defense_physical = self.defense_magical = 0
+        self.can_equip_martial_armor = self.can_equip_martial_melee = False
+        self.can_equip_martial_ranged = self.can_equip_shield = False
+        self.can_start_projects = False
+        self.rituals = Stats.Rituals()
 
     @property
     def in_crisis(self) -> bool:
@@ -121,19 +87,6 @@ class Stats:
     def rest(self):
         self.hp = self.hp_max
         self.mp = self.mp_max
-
-    @property
-    def defense_physical(self) -> int:
-        return self._char.attributes.dex_base.value
-
-    @property
-    def defense_magical(self) -> int:
-        return self._char.attributes.ins_base.value
-
-    @property
-    def initiative(self) -> int: #TODO: different for PCs and NPCs -- this is correct for NPCs, for PCs it's 0 + other values
-        return 10
-        #return (self._char.attributes.dex_base.value + self._char.attributes.ins_base.value) // 2  #TODO: account for armor penalties
 
 
 class Equipment:
@@ -173,8 +126,13 @@ class Character(ABC):
         self.name = name
         self.level = level
         self.attributes = Attributes(dex, ins, mgt, wlp)
-        self.stats = Stats(self)
+        self.stats = Stats()
         self.equipment = Equipment()
+
+    @abstractmethod
+    def compute(self):
+        """ Computes the stats of this character, based on their attributes, stats and equipment. """
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         report = f"{self.name} (Level {self.level})\n"
@@ -192,8 +150,17 @@ class Character(ABC):
             f"\n\tMagical Defense: {self.stats.defense_magical}"
         return report
 
-    def _get_class_benefits(self) -> List[PlayerClassBenefit]:
-        raise NotImplementedError()
+
+class PlayerClass(ABC):
+    def __init__(self, name: str, level: int, desc: str):
+        self.name = name
+        self.level = level
+        self.desc = desc
+
+    @abstractmethod
+    def apply_stats(self, char: 'PlayerCharacter'):
+        """ Applies the effects of this class on the character's stats """
+        pass
 
 
 class PlayerCharacter(Character):
@@ -203,21 +170,30 @@ class PlayerCharacter(Character):
                  dex: int, ins: int, mgt: int, wlp: int):
         super().__init__(name, level, dex, ins, mgt, wlp)
 
-        self.classes: Dict[PlayerClass, int] = {}
+        self.player_classes: List[PlayerClass] = []
 
-    def _get_class_benefits(self) -> List[PlayerClassBenefit]:
-        ret = []
-        for pClass in self.classes.keys():
-            ret += pClass.benefits
+    def compute(self):
+        # Apply stats based on attributes
+        self.stats.hp_max = self.level + (5 * self.attributes.mgt_base)
+        self.stats.mp_max = self.level + (5 * self.attributes.wlp_base)
+        self.stats.ip_max = 6
+        self.stats.defense_physical = self.attributes.dex_base.value
+        self.stats.defense_magical = self.attributes.ins_base.value
+        self.stats.initiative = 10
 
-        return ret
+        # Apply stats based on classes
+        for player_class in self.player_classes:
+            player_class.apply_stats(self)
+
+        # Apply stats based on equipment
+
 
     def __str__(self) -> str:
         report = super().__str__()
-        if len(self.classes) > 0:
+        if len(self.player_classes) > 0:
             report += "\nClasses:"
-            for pClass, classLevel in self.classes.items():
-                report += f"\n\t{pClass.name} L{classLevel}"
+            for player_class in self.player_classes:
+                report += f"\n\t{player_class.name} L{player_class.level}"
         return report
 
 
@@ -227,3 +203,16 @@ class NonPlayerCharacter(Character):
                  level: int,
                  dex: int, ins: int, mgt: int, wlp: int):
         super().__init__(name, level, dex, ins, mgt, wlp)
+
+    def compute(self):
+        # Apply stats based on attributes
+        self.stats.hp_max = (2 * self.level) + (5 * self.attributes.mgt_base)
+        self.stats.mp_max = (2 * self.level) + (5 * self.attributes.wlp_base)
+        self.stats.ip_max = 6
+        self.stats.defense_physical = self.attributes.dex_base.value
+        self.stats.defense_magical = self.attributes.ins_base.value
+        self.stats.initiative = (self.attributes.dex_base.value + self.attributes.ins_base.value) // 2
+
+        # Apply stats based on classes
+
+        # Apply stats based on equipment
