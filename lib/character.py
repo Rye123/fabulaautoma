@@ -9,6 +9,7 @@ from typing import List, Union
 from lib.core.character import Character
 from lib.core.playerclass import PlayerClass
 from lib.core.item import Item
+from lib.core.skill import Skill
 
 
 class Equipment:
@@ -23,6 +24,7 @@ class Equipment:
     """
 
     def __init__(self):
+        #TODO: maybe don't let this be None, keep it consistent -- either None or NoArmor/Barehands
         self.accessory: Union[None, Item] = None
         self.armor: Union[None, Item] = None
         self.main_hand: Union[None, Item] = None
@@ -50,6 +52,7 @@ class PlayerCharacter(Character):
 
         self.player_classes: List[PlayerClass] = []
         self.equipment = Equipment()
+        self.skills: List[Skill] = []
 
     def compute(self):
         self.stats.breakdown.reset()
@@ -75,6 +78,8 @@ class PlayerCharacter(Character):
         # Apply stats based on skills
         #TODO: not sure whether skills should be grouped under PlayerClass or under PlayerCharacter, since
         #TODO: NPC skills are class-independent (since NPCs...don't have classes)
+        for skill in self.skills:
+            skill.apply_stats(self)
 
         # Apply stats based on equipment
         self.equipment.apply_stats(self)
@@ -92,7 +97,12 @@ class PlayerCharacter(Character):
         report += f"\n\tMain Hand: {self.equipment.main_hand}"
         report += f"\n\tOff Hand: {self.equipment.off_hand}"
 
-        #TODO: report player skills, equipment
+        if len(self.skills) > 0:
+            report += "\nSkills:"
+            for skill in self.skills:
+                report += f"\n\t{skill}"
+
+        #TODO: report player skills
         return report
 
 
@@ -103,6 +113,7 @@ class NonPlayerCharacter(Character):
                  dex: int, ins: int, mig: int, wlp: int):
         super().__init__(name, level, dex, ins, mig, wlp)
         self.equipment = Equipment()
+        self.skills: List[Skill] = []
 
     def compute(self):
         self.stats.breakdown.reset()
@@ -122,7 +133,8 @@ class NonPlayerCharacter(Character):
         self.stats.breakdown.initiative = [f"({self.attributes.dex_base} (DEX) + {self.attributes.ins_base} (INS)) // 2"]
 
         # Apply stats based on skills
-        #TODO: when skills are implemented
+        for skill in self.skills:
+            skill.apply_stats(self)
 
         # Apply stats based on equipment
         self.equipment.apply_stats(self)

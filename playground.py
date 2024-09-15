@@ -2,7 +2,12 @@ from lib.playerclasses.vanilla import *
 from lib.playerclasses.technofantasy import *
 
 from lib.items.weapons.weapons_sword import *
+from lib.items.weapons.weapons_dagger import *
+from lib.items.weapons.weapons_thrown import *
 from lib.items.armors.basic_armors import *
+
+from lib.skills.vanilla.skills_tinkerer import *
+from lib.skills.vanilla.skills_loremaster import *
 
 class WeaponBreakerBladeV1(Weapon):
     def __init__(self):
@@ -38,4 +43,16 @@ if __name__ == "__main__":
     icaris.compute()
     print(icaris)
 
+    print("---")
+    chroma = PlayerCharacter("Chroma Aber", 10, 6, 10, 6, 10)
+    chroma.player_classes += [ClassTinkerer(6), ClassLoremaster(4)]
+    chroma.equipment.main_hand = WeaponSteelDagger()
+    chroma.equipment.off_hand = WeaponShuriken()
+    chroma.skills += [
+        Skill_Gadgets(4), Skill_SecretFormula(1),
+        Skill_KnowledgeIsPower(1), Skill_TrainedMemory(1),
+        Skill_QuickAssessment(1), Skill_Focused(1)
+    ]
+    chroma.compute()
+    print(chroma)
 
