@@ -1,5 +1,4 @@
 import unittest
-from lib.character import PlayerCharacter
 from lib.playerclass import *
 
 

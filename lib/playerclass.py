@@ -20,8 +20,8 @@ For instance, the `ClassEntropist` class doesn't need to track arcana, but the `
 The logic for all that will hence be encapsulated entirely within the `ClassArcanist` class.
 """
 
-
-from lib.character import PlayerClass, PlayerCharacter
+from lib.core.playerclass import PlayerClass
+from lib.character import PlayerCharacter
 
 
 class ClassArcanist(PlayerClass):
