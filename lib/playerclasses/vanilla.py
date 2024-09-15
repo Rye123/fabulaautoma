@@ -33,6 +33,7 @@ class ClassArcanist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassChimerist(PlayerClass):
@@ -44,6 +45,7 @@ class ClassChimerist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
         char.stats.rituals.ritualism = True
 
 
@@ -56,6 +58,7 @@ class ClassDarkblade(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_melee = True
         char.stats.can_equip_martial_armor = True
 
@@ -69,6 +72,7 @@ class ClassElementalist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
         char.stats.rituals.ritualism = True
 
 
@@ -81,6 +85,7 @@ class ClassEntropist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
         char.stats.rituals.ritualism = True
 
 
@@ -93,6 +98,7 @@ class ClassFury(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_melee = True
         char.stats.can_equip_martial_armor = True
 
@@ -106,6 +112,7 @@ class ClassGuardian(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_armor = True
         char.stats.can_equip_shield = True
 
@@ -119,6 +126,7 @@ class ClassLoremaster(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassOrator(PlayerClass):
@@ -130,6 +138,7 @@ class ClassOrator(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassRogue(PlayerClass):
@@ -141,6 +150,7 @@ class ClassRogue(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.ip_max += 2
+        char.stats.breakdown.ip_max += [f"2 ({self.name})"]
 
 
 class ClassSharpshooter(PlayerClass):
@@ -152,6 +162,7 @@ class ClassSharpshooter(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_ranged = True
         char.stats.can_equip_shield = True
 
@@ -165,6 +176,7 @@ class ClassSpiritist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
         char.stats.rituals.ritualism = True
 
 
@@ -177,6 +189,7 @@ class ClassTinkerer(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.ip_max += 2
+        char.stats.breakdown.ip_max += [f"2 ({self.name})"]
         char.stats.can_start_projects = True
 
 
@@ -189,6 +202,7 @@ class ClassWayfarer(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.ip_max += 2
+        char.stats.breakdown.ip_max += [f"2 ({self.name})"]
 
 
 class ClassWeaponmaster(PlayerClass):
@@ -200,6 +214,7 @@ class ClassWeaponmaster(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_melee = True
         char.stats.can_equip_shield = True
 

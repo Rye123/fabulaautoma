@@ -52,13 +52,21 @@ class PlayerCharacter(Character):
         self.equipment = Equipment()
 
     def compute(self):
+        self.stats.breakdown.reset()
+
         # Apply stats based on attributes
         self.stats.hp_max = self.level + (5 * self.attributes.mig_base)
+        self.stats.breakdown.hp_max += [f"{self.level} (Level)", f"5 * {self.attributes.mig_base} (MIG)"]
         self.stats.mp_max = self.level + (5 * self.attributes.wlp_base)
+        self.stats.breakdown.mp_max += [f"{self.level} (Level)", f"5 * {self.attributes.wlp_base} (WLP)"]
         self.stats.ip_max = 6
+        self.stats.breakdown.ip_max += [f"6 (Base)"]
         self.stats.defense_physical = self.attributes.dex_base.value
+        self.stats.breakdown.defense_physical = [f"{self.attributes.dex_base} (DEX)"]
         self.stats.defense_magical = self.attributes.ins_base.value
+        self.stats.breakdown.defense_magical = [f"{self.attributes.ins_base} (INS)"]
         self.stats.initiative = 10
+        self.stats.breakdown.initiative = [f"10 (Base)"]
 
         # Apply stats based on classes
         for player_class in self.player_classes:
@@ -97,13 +105,21 @@ class NonPlayerCharacter(Character):
         self.equipment = Equipment()
 
     def compute(self):
+        self.stats.breakdown.reset()
+
         # Apply stats based on attributes
         self.stats.hp_max = (2 * self.level) + (5 * self.attributes.mig_base)
+        self.stats.breakdown.hp_max += [f"2 * {self.level} (Level)", f"5 * {self.attributes.mig_base} (MIG)"]
         self.stats.mp_max = (2 * self.level) + (5 * self.attributes.wlp_base)
+        self.stats.breakdown.mp_max += [f"2 * {self.level} (Level)", f"5 * {self.attributes.wlp_base} (WLP)"]
         self.stats.ip_max = 6
+        self.stats.breakdown.ip_max += [f"6 (Base)"]
         self.stats.defense_physical = self.attributes.dex_base.value
+        self.stats.breakdown.defense_physical = [f"{self.attributes.dex_base} (DEX)"]
         self.stats.defense_magical = self.attributes.ins_base.value
+        self.stats.breakdown.defense_magical = [f"{self.attributes.ins_base} (INS)"]
         self.stats.initiative = (self.attributes.dex_base.value + self.attributes.ins_base.value) // 2
+        self.stats.breakdown.initiative = [f"({self.attributes.dex_base} (DEX) + {self.attributes.ins_base} (INS)) // 2"]
 
         # Apply stats based on skills
         #TODO: when skills are implemented

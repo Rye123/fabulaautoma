@@ -85,44 +85,60 @@ class Armor(Item):
         # Parse physical defense
         phy_components = self.defense_physical.split('+')
         new_def_physical = 0
+        char.stats.breakdown.defense_physical = ""
+        breakdown_components = []
         for component in phy_components:
             #TODO not sure if these should be the base or effective values
             if component == "DEX":
                 new_def_physical += char.attributes.dex_base
+                breakdown_components.append(f"{char.attributes.dex_base} (DEX)")
             elif component == "INS":
                 new_def_physical += char.attributes.ins_base
+                breakdown_components.append(f"{char.attributes.ins_base} (INS)")
             elif component == "MIG":
                 new_def_physical += char.attributes.mig_base
+                breakdown_components.append(f"{char.attributes.mig_base} (MIG)")
             elif component == "WLP":
                 new_def_physical += char.attributes.wlp_base
+                breakdown_components.append(f"{char.attributes.wlp_base} (MIG)")
             else:
                 try:
                     new_def_physical += int(component)
+                    breakdown_components.append(component)
                 except ValueError:
                     raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
         char.stats.defense_physical = new_def_physical
+        char.stats.breakdown.defense_physical = '(' + "+".join(breakdown_components) + ') (Armor)'
 
         # Parse magical defense
         mag_components = self.defense_magical.split('+')
         new_def_magical = 0
+        breakdown_components = []
         for component in mag_components:
             #TODO not sure if these should be the base or effective values
             if component == "DEX":
                 new_def_magical += char.attributes.dex_base
+                breakdown_components.append(f"{char.attributes.dex_base} (DEX)")
             elif component == "INS":
                 new_def_magical += char.attributes.ins_base
+                breakdown_components.append(f"{char.attributes.ins_base} (INS)")
             elif component == "MIG":
                 new_def_magical += char.attributes.mig_base
+                breakdown_components.append(f"{char.attributes.mig_base} (MIG)")
             elif component == "WLP":
                 new_def_magical += char.attributes.wlp_base
+                breakdown_components.append(f"{char.attributes.wlp_base} (WLP")
             else:
                 try:
                     new_def_magical += int(component)
+                    breakdown_components.append(component)
                 except ValueError:
                     raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
         char.stats.defense_magical = new_def_magical
+        char.stats.breakdown.defense_magical = '(' + "+".join(breakdown_components) + ') (Armor)'
 
         char.stats.initiative += self.initiative_bonus
+        char.stats.breakdown.initiative += [f"+{self.initiative_bonus} (Armor)"]
 
 
 class Shield(Item):
@@ -143,5 +159,8 @@ class Shield(Item):
 
     def apply_stats(self, char: Character):
         char.stats.defense_physical += self.defense_physical_bonus
+        char.stats.breakdown.defense_physical += [f"{self.defense_physical_bonus} (Shield)"]
         char.stats.defense_magical += self.defense_magical_bonus
+        char.stats.breakdown.defense_magical += [f"{self.defense_magical_bonus} (Shield)"]
         char.stats.initiative += self.initiative_bonus
+        char.stats.breakdown.initiative += [f"{self.initiative_bonus} (Shield)"]

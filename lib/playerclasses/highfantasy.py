@@ -11,6 +11,7 @@ class ClassChanter(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassCommander(PlayerClass):
@@ -22,6 +23,7 @@ class ClassCommander(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_melee = True
         char.stats.can_equip_martial_ranged = True
 
@@ -42,8 +44,10 @@ class ClassDancer(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         if self._increase_hp:
             char.stats.hp_max += 5
+            char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         else:
             char.stats.mp_max += 5
+            char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassSymbolist(PlayerClass):
@@ -55,4 +59,5 @@ class ClassSymbolist(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.ip_max += 2
+        char.stats.breakdown.ip_max += [f"2 ({self.name})"]
 

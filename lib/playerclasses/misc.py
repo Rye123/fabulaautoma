@@ -18,5 +18,7 @@ class ClassNecromancer(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         if self._increase_hp:
             char.stats.hp_max += 5
+            char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         else:
             char.stats.mp_max += 5
+            char.stats.breakdown.mp_max += [f"5 ({self.name})"]

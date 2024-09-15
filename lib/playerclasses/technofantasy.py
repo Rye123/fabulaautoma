@@ -11,6 +11,7 @@ class ClassEsper(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.mp_max += 5
+        char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
 class ClassMutant(PlayerClass):
@@ -22,6 +23,7 @@ class ClassMutant(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
 
 
 class ClassPilot(PlayerClass):
@@ -33,5 +35,6 @@ class ClassPilot(PlayerClass):
 
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
+        char.stats.breakdown.hp_max += [f"5 ({self.name})"]
         char.stats.can_equip_martial_melee = True
         char.stats.can_equip_martial_ranged = True

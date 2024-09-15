@@ -83,6 +83,25 @@ class Stats:
             self.arcanism = self.chimerism = self.elementalism = False
             self.entropism = self.ritualism = self.spiritism = False
 
+    class Breakdown:
+        """ Shows the computation of the corresponding value """
+        def __init__(self):
+            self.hp_max = []
+            self.mp_max = []
+            self.ip_max = []
+            self.initiative = []
+            self.defense_physical = []
+            self.defense_magical = []
+
+        def reset(self):
+            self.hp_max = []
+            self.mp_max = []
+            self.ip_max = []
+            self.initiative = []
+            self.defense_physical = []
+            self.defense_magical = []
+
+
     def __init__(self):
         self.hp = self.mp = self.ip = 0
         self.hp_max = self.mp_max = self.ip_max = 0
@@ -92,6 +111,7 @@ class Stats:
         self.can_equip_martial_ranged = self.can_equip_shield = False
         self.can_start_projects = False
         self.rituals = Stats.Rituals()
+        self.breakdown = Stats.Breakdown()
 
     @property
     def in_crisis(self) -> bool:
@@ -131,4 +151,11 @@ class Character(ABC):
             f"\n\tInitiative: {self.stats.initiative}" + \
             f"\n\tDefense: {self.stats.defense_physical}" + \
             f"\n\tMagical Defense: {self.stats.defense_magical}"
+        report += "\nStats Calculation:" + \
+            f"\n\tHP Max: {self.stats.breakdown.hp_max}" + \
+            f"\n\tMP Max: {self.stats.breakdown.mp_max}" + \
+            f"\n\tIP Max: {self.stats.breakdown.ip_max}" + \
+            f"\n\tInitiative: {self.stats.breakdown.initiative}" + \
+            f"\n\tDefense: {self.stats.breakdown.defense_physical}" + \
+            f"\n\tMagical Defense: {self.stats.breakdown.defense_magical}"
         return report
