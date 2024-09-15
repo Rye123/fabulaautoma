@@ -11,15 +11,9 @@ can return the JSON to a frontend to actually render it nicely.
 
 from abc import ABC, abstractmethod
 from enum import IntEnum
-from typing import List, Union, Dict
-from .dice import Dice
-from .item import Item, Armor, Weapon, Shield
-
-class Trait:
-    """ A trait. Not implemented yet, but this is purely for descriptive flavour """
-    def __init__(self, name: str, desc: str):
-        self.name = name
-        self.desc = desc
+from typing import List, Union
+from lib.dice import Dice
+from lib.item import Item, Armor, Weapon, Shield
 
 
 class StatusEffect(IntEnum):
@@ -174,6 +168,20 @@ class Equipment:
         pass
 
 
+class PlayerClass(ABC):
+    """ Describes a class that a player can have. """
+
+    def __init__(self, name: str, level: int, desc: str):
+        self.name = name
+        self.level = level
+        self.desc = desc
+
+    @abstractmethod
+    def apply_stats(self, char: 'PlayerCharacter'):
+        """ Applies the effects of this class on the character's stats """
+        pass
+
+
 class Character(ABC):
     def __init__(self,
                  name: str,
@@ -205,20 +213,6 @@ class Character(ABC):
             f"\n\tDefense: {self.stats.defense_physical}" + \
             f"\n\tMagical Defense: {self.stats.defense_magical}"
         return report
-
-
-class PlayerClass(ABC):
-    """ Describes a class that a player can have. """
-
-    def __init__(self, name: str, level: int, desc: str):
-        self.name = name
-        self.level = level
-        self.desc = desc
-
-    @abstractmethod
-    def apply_stats(self, char: 'PlayerCharacter'):
-        """ Applies the effects of this class on the character's stats """
-        pass
 
 
 class PlayerCharacter(Character):
