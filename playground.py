@@ -1,6 +1,5 @@
-from lib.character import PlayerCharacter, NonPlayerCharacter
-from lib.playerclass import *
-from lib.core.item import Weapon, WeaponType, DamageType
+from lib.playerclasses.vanilla import *
+from lib.playerclasses.technofantasy import *
 
 from lib.items.weapons.weapons_sword import *
 from lib.items.armors.basic_armors import *
@@ -33,7 +32,7 @@ if __name__ == "__main__":
 
     print("---")
     icaris = PlayerCharacter("Icaris", 10, 8, 8, 10, 6)
-    icaris.player_classes += [ClassWeaponmaster(4), ClassEntropist(3)]  # haven't implemented pilot yet
+    icaris.player_classes += [ClassWeaponmaster(4), ClassEntropist(3), ClassPilot(3)]
     icaris.equipment.main_hand = WeaponBreakerBladeV1()
     icaris.equipment.armor = ArmorCombatTunic()
     icaris.compute()

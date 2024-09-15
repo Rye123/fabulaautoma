@@ -1,5 +1,5 @@
 import unittest
-from lib.playerclass import *
+from lib.playerclasses.vanilla import *
 
 
 class TestPlayerCharacter(unittest.TestCase):
