@@ -78,6 +78,12 @@ class PlayerCharacter(Character):
             for player_class in self.player_classes:
                 report += f"\n\t{player_class.name} L{player_class.level}"
 
+        report += "\nEquipment:"
+        report += f"\n\tAccessory: {self.equipment.accessory}"
+        report += f"\n\tArmor: {self.equipment.armor}"
+        report += f"\n\tMain Hand: {self.equipment.main_hand}"
+        report += f"\n\tOff Hand: {self.equipment.off_hand}"
+
         #TODO: report player skills, equipment
         return report
 
