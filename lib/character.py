@@ -45,15 +45,15 @@ class PlayerCharacter(Character):
     def __init__(self,
                  name: str,
                  level: int,
-                 dex: int, ins: int, mgt: int, wlp: int):
-        super().__init__(name, level, dex, ins, mgt, wlp)
+                 dex: int, ins: int, mig: int, wlp: int):
+        super().__init__(name, level, dex, ins, mig, wlp)
 
         self.player_classes: List[PlayerClass] = []
         self.equipment = Equipment()
 
     def compute(self):
         # Apply stats based on attributes
-        self.stats.hp_max = self.level + (5 * self.attributes.mgt_base)
+        self.stats.hp_max = self.level + (5 * self.attributes.mig_base)
         self.stats.mp_max = self.level + (5 * self.attributes.wlp_base)
         self.stats.ip_max = 6
         self.stats.defense_physical = self.attributes.dex_base.value
@@ -86,13 +86,13 @@ class NonPlayerCharacter(Character):
     def __init__(self,
                  name: str,
                  level: int,
-                 dex: int, ins: int, mgt: int, wlp: int):
-        super().__init__(name, level, dex, ins, mgt, wlp)
+                 dex: int, ins: int, mig: int, wlp: int):
+        super().__init__(name, level, dex, ins, mig, wlp)
         self.equipment = Equipment()
 
     def compute(self):
         # Apply stats based on attributes
-        self.stats.hp_max = (2 * self.level) + (5 * self.attributes.mgt_base)
+        self.stats.hp_max = (2 * self.level) + (5 * self.attributes.mig_base)
         self.stats.mp_max = (2 * self.level) + (5 * self.attributes.wlp_base)
         self.stats.ip_max = 6
         self.stats.defense_physical = self.attributes.dex_base.value

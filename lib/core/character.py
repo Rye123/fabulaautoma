@@ -6,23 +6,23 @@ from lib.core.constants import StatusEffect
 class Attributes:
     """
     A character's base attributes.
-    - `dex_base`, `ins_base`, `mgt_base`, `wlp_base`: The base dexterity, insight, might, and willpower values.
-    - `dex_eff`, `ins_eff`, `mgt_eff`, `wlp_eff`: The effective dexterity, insight, might and willpower values, including
+    - `dex_base`, `ins_base`, `mig_base`, `wlp_base`: The base dexterity, insight, might, and willpower values.
+    - `dex_eff`, `ins_eff`, `mig_eff`, `wlp_eff`: The effective dexterity, insight, might and willpower values, including
                                                   status effects.
     - `status_effects`: A list of existing status effects on the character.
-    - `dex_bonus`, `ins_bonus`, `mgt_bonus`, `wlp_bonus`: Bonus to the respective values, which could happen due to equipment.
+    - `dex_bonus`, `ins_bonus`, `mig_bonus`, `wlp_bonus`: Bonus to the respective values, which could happen due to equipment.
     """
 
-    def __init__(self, dex: int, ins: int, mgt: int, wlp: int):
+    def __init__(self, dex: int, ins: int, mig: int, wlp: int):
         try:
             self.dex_base = Dice(dex)
             self.ins_base = Dice(ins)
-            self.mgt_base = Dice(mgt)
+            self.mig_base = Dice(mig)
             self.wlp_base = Dice(wlp)
         except ValueError as e:
             raise ValueError("Attributes.__init__: Invalid value given as dice size, expected 6, 8, 10, 12, or 20.")
         self.status_effects = []
-        self.dex_bonus = self.ins_bonus = self.mgt_bonus = self.wlp_bonus = 0
+        self.dex_bonus = self.ins_bonus = self.mig_bonus = self.wlp_bonus = 0
 
     @property
     def dex_eff(self) -> Dice:
@@ -41,12 +41,12 @@ class Attributes:
         return cur_ins
 
     @property
-    def mgt_eff(self) -> Dice:
-        cur_mgt = self.mgt_base
+    def mig_eff(self) -> Dice:
+        cur_mig = self.mig_base
         for fx in self.status_effects:
             if fx in [StatusEffect.POISONED, StatusEffect.WEAK]:
-                cur_mgt = cur_mgt.get_next_lower()
-        return cur_mgt
+                cur_mig = cur_mig.get_next_lower()
+        return cur_mig
 
     @property
     def wlp_eff(self) -> Dice:
@@ -106,10 +106,10 @@ class Character(ABC):
     def __init__(self,
                  name: str,
                  level: int,
-                 dex: int, ins: int, mgt: int, wlp: int):
+                 dex: int, ins: int, mig: int, wlp: int):
         self.name = name
         self.level = level
-        self.attributes = Attributes(dex, ins, mgt, wlp)
+        self.attributes = Attributes(dex, ins, mig, wlp)
         self.stats = Stats()
 
     @abstractmethod
@@ -122,7 +122,7 @@ class Character(ABC):
         report += "Attributes:" + \
             f"\n\tDEX: {self.attributes.dex_eff} (base {self.attributes.dex_base})" + \
             f"\n\tINS: {self.attributes.ins_eff} (base {self.attributes.ins_base})" + \
-            f"\n\tMGT: {self.attributes.mgt_eff} (base {self.attributes.mgt_base})" + \
+            f"\n\tMIG: {self.attributes.mig_eff} (base {self.attributes.mig_base})" + \
             f"\n\tWLP: {self.attributes.wlp_eff} (base {self.attributes.wlp_base})\n"
         report += "Stats:" + \
             f"\n\tHP: {self.stats.hp}/{self.stats.hp_max}  (CRISIS: {self.stats.in_crisis})" + \
