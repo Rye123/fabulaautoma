@@ -10,8 +10,25 @@ class StatusEffect(IntEnum):
     WEAK     = 5  # Reduces Might by 1 size
 
 
+class DamageType(IntEnum):
+    PHYSICAL = 0
+    AIR = 1
+    BOLT = 2
+    DARK = 3
+    EARTH = 4
+    FIRE = 5
+    ICE = 6
+    LIGHT = 7
+    POISON = 8
+
+
 class ItemType(IntEnum):
     ACCESSORY = 0
     ARMOR = 1
     SHIELD = 2
     WEAPON = 3
+
+
+class WeaponType(IntEnum):
+    MELEE = 0
+    RANGED = 1
