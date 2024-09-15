@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from lib.core.character import Character
 from lib.core.constants import ItemType, WeaponType, DamageType
-from lib.core.parsers import parse_accuracy_string, parse_damage_string
+from lib.core.parsers import parse_accuracy_string, parse_damage_string, parse_defense_string
 
 
 class Item(ABC):
@@ -67,21 +67,81 @@ class Weapon(Item):
 
 class Armor(Item):
     def __init__(self, name: str, desc: str, cost: int,
-                 martial: bool = False):
+                 martial: bool = False,
+                 defense_physical: str = "",
+                 defense_magical: str = "",
+                 initiative_bonus: int = 0):
         super().__init__(name, desc, ItemType.ARMOR, cost)
         self.martial = martial
+        self.defense_physical = parse_defense_string(defense_physical)
+        self.defense_magical = parse_defense_string(defense_magical)
+        self.initiative_bonus = initiative_bonus
 
     def __str__(self):
         report = super().__str__()
         return report
+
+    def apply_stats(self, char: Character):
+        # Parse physical defense
+        phy_components = self.defense_physical.split('+')
+        new_def_physical = 0
+        for component in phy_components:
+            #TODO not sure if these should be the base or effective values
+            if component == "DEX":
+                new_def_physical += char.attributes.dex_base
+            elif component == "INS":
+                new_def_physical += char.attributes.ins_base
+            elif component == "MIG":
+                new_def_physical += char.attributes.mig_base
+            elif component == "WLP":
+                new_def_physical += char.attributes.wlp_base
+            else:
+                try:
+                    new_def_physical += int(component)
+                except ValueError:
+                    raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
+        char.stats.defense_physical = new_def_physical
+
+        # Parse magical defense
+        mag_components = self.defense_magical.split('+')
+        new_def_magical = 0
+        for component in mag_components:
+            #TODO not sure if these should be the base or effective values
+            if component == "DEX":
+                new_def_magical += char.attributes.dex_base
+            elif component == "INS":
+                new_def_magical += char.attributes.ins_base
+            elif component == "MIG":
+                new_def_magical += char.attributes.mig_base
+            elif component == "WLP":
+                new_def_magical += char.attributes.wlp_base
+            else:
+                try:
+                    new_def_magical += int(component)
+                except ValueError:
+                    raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
+        char.stats.defense_magical = new_def_magical
+
+        char.stats.initiative += self.initiative_bonus
 
 
 class Shield(Item):
     def __init__(self, name: str, desc: str, cost: int,
-                 martial: bool = False):
+                 martial: bool = False,
+                 defense_physical_bonus: int = 0,
+                 defense_magical_bonus: int = 0,
+                 initiative_bonus: int = 0):
         super().__init__(name, desc, ItemType.SHIELD, cost)
         self.martial = martial
+        self.defense_physical_bonus = defense_physical_bonus
+        self.defense_magical_bonus = defense_magical_bonus
+        self.initiative_bonus = initiative_bonus
 
     def __str__(self):
         report = super().__str__()
         return report
+
+    def apply_stats(self, char: Character):
+        char.stats.defense_physical += self.defense_physical_bonus
+        char.stats.defense_magical += self.defense_magical_bonus
+        char.stats.initiative += self.initiative_bonus

@@ -131,3 +131,68 @@ def parse_damage_string(damage: str) -> str:
         res_damage += f"+{bonus}"
 
     return res_damage
+
+
+def parse_defense_string(defense: str) -> str:
+    """
+    Parses the defense string, returning the defense value.
+    Note that DEX, INS, MIG, WLP in this case refer to the SIZE of the dice.
+
+    Example:
+        ```
+        parse_defense_string("3+DEX + 1")   # returns "DEX+4"
+        ```
+    """
+
+    ACCEPTED_KEYWORDS = ["DEX", "INS", "MIG", "WLP"]
+
+    i = 0
+    keywords = []
+    bonus = 0
+    while i < len(defense):
+        match defense[i]:
+            case ' ' | '\t':
+                i += 1
+            case '+':  #TODO: I'm assuming there's no negatives here
+                i += 1
+            case _:
+                if defense[i].isdigit():
+                    # Parse until not a digit anymore
+                    j = i + 1
+                    while j < len(defense) and defense[j].isdigit():
+                        j += 1
+
+                    # Invariant: j is now end of string OR pointing to a non-digit
+                    number = int(defense[i:j])
+                    bonus += number
+                    i = j
+                elif defense[i].isalpha():
+                    # Parse until we get a full keyword (only alphabetical chars)
+                    j = i + 1
+                    while j < len(defense) and defense[j].isalpha():
+                        j += 1
+
+                    # Invariant: j is now end of string OR pointing to a non-character
+                    keyword = defense[i:j]
+                    found = False
+                    for test_keyword in ACCEPTED_KEYWORDS:
+                        if test_keyword == keyword:
+                            found = True
+
+                    if not found:
+                        raise ValueError(f"parse_defense_string: Invalid keyword {keyword}")
+                    keywords.append(keyword)
+                    i = j
+                else:
+                    raise ValueError(f"parse_defense_string: Unexpected character {defense[i]}")
+
+    # Construct result string
+    res_defense = ""
+    keywords = sorted(keywords)
+    if len(keywords) != 0:
+        res_defense += "+".join(keywords)
+    if bonus != 0:
+        res_defense += f"+{bonus}"
+
+    return res_defense
+

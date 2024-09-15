@@ -1,5 +1,5 @@
 import unittest
-from lib.core.parsers import parse_accuracy_string, parse_damage_string
+from lib.core.parsers import parse_accuracy_string, parse_damage_string, parse_defense_string
 
 class AccuracyTestCase(unittest.TestCase):
     def test_accuracy_parser(self):
@@ -95,6 +95,63 @@ class DamageTestCase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             parse_damage_string(";")
+
+
+class DefenseTestCase(unittest.TestCase):
+    def test_defense_parser(self):
+        # Basic values
+        self.assertEqual(
+            parse_defense_string("DEX"),
+            "DEX"
+        )
+        self.assertEqual(
+            parse_defense_string("WLP"),
+            "WLP"
+        )
+        self.assertEqual(
+            parse_defense_string("  INS "),
+            "INS"
+        )
+        self.assertEqual(
+            parse_defense_string("MIG"),
+            "MIG"
+        )
+
+        # Sums
+        self.assertEqual(
+            parse_defense_string("DEX + INS"),
+            "DEX+INS"
+        )
+        self.assertEqual(
+            parse_defense_string("WLP+MIG"),
+            "MIG+WLP"    # Order is DEX, INS, MIG, WLP
+        )
+        self.assertEqual(
+            parse_defense_string("WLP  +INS +1"),
+            "INS+WLP+1"  # Order is DEX, INS, MIG, WLP
+        )
+        self.assertEqual(
+            parse_defense_string("MIG+MIG+2"),
+            "MIG+MIG+2"
+        )
+        self.assertEqual(
+            parse_defense_string("3+WLP+MIG+WLP+INS+DEX+MIG"),
+            "DEX+INS+MIG+MIG+WLP+WLP+3"
+        )
+        self.assertEqual(
+            parse_defense_string("3+MIG+WLP+4+7"),
+            "MIG+WLP+14"
+        )
+
+        # Unexpected Input
+        with self.assertRaises(ValueError):
+            parse_defense_string("ASDF+FDSA")
+
+        with self.assertRaises(ValueError):
+            parse_defense_string("(MIG)")
+
+        with self.assertRaises(ValueError):
+            parse_defense_string(";")
 
 
 if __name__ == '__main__':
