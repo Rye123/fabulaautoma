@@ -7,7 +7,7 @@ I've come up with the following rough outline.
 
 ## Character
 The `PlayerCharacter.compute()` method (in `lib.character`) computes the character's stats through the following steps:
-1. Compute base values (e.g. $\verb|HP|_{\verb|max|} = \verb|level| + 5(\verb|might|)$)
+1. Compute base values (e.g. $\verb|HP|_{\verb|max|} = \verb|level| + 5(\verb|might|)$ )
 2. Add bonuses/maluses based on the character's classes:
     - Each player class has a `.apply_stats(character)` method.
     - This allows for any stats bonuses or maluses to be defined within the player class definition.
