@@ -2,7 +2,7 @@ from lib.core.item import Weapon
 from lib.core.constants import DamageType, WeaponType
 
 
-class WeaponImprovisedRanged(Weapon):
+class Weapon_ImprovisedRanged(Weapon):
     def __init__(self):
         super().__init__(
             "Improvised (Ranged)", "Breaks after the attack.", 0,
@@ -15,7 +15,7 @@ class WeaponImprovisedRanged(Weapon):
         )
 
 
-class WeaponShuriken(Weapon):
+class Weapon_Shuriken(Weapon):
     def __init__(self):
         super().__init__(
             "Shuriken", "", 150,

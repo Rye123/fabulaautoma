@@ -2,7 +2,7 @@ from lib.core.item import Weapon
 from lib.core.constants import DamageType, WeaponType
 
 
-class WeaponIronHammer(Weapon):
+class Weapon_IronHammer(Weapon):
     def __init__(self):
         super().__init__(
             "Iron Hammer", "", 200,
@@ -15,7 +15,7 @@ class WeaponIronHammer(Weapon):
         )
 
 
-class WeaponBroadaxe(Weapon):
+class Weapon_Broadaxe(Weapon):
     def __init__(self):
         super().__init__(
             "Broadaxe", "", 250,
@@ -28,7 +28,7 @@ class WeaponBroadaxe(Weapon):
         )
 
 
-class WeaponWaraxe(Weapon):
+class Weapon_Waraxe(Weapon):
     def __init__(self):
         super().__init__(
             "Waraxe", "", 250,

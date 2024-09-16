@@ -2,7 +2,7 @@ from lib.core.playerclass import PlayerClass
 from lib.character import PlayerCharacter
 
 
-class ClassEsper(PlayerClass):
+class Class_Esper(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Esper",
                          level,
@@ -14,7 +14,7 @@ class ClassEsper(PlayerClass):
         char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassMutant(PlayerClass):
+class Class_Mutant(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Mutant",
                          level,
@@ -26,7 +26,7 @@ class ClassMutant(PlayerClass):
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
 
 
-class ClassPilot(PlayerClass):
+class Class_Pilot(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Pilot",
                          level,

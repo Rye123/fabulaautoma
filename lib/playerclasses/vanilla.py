@@ -2,7 +2,7 @@
 This file contains all possible player classes.
 
 For IDE ease, each class follows the following syntax:
-class Class{CLASS_NAME}(PlayerClass):
+class Class_{CLASS_NAME}(PlayerClass):
     def __init__(self, level: int):
         super().__init__("{CLASS_NAME}",
                          level,
@@ -16,7 +16,7 @@ In the future, since in Fabula some classes have entire systems, the respective 
 contain the necessary logic. The way this is currently coded is to (hopefully) enable easy extension for
 the various player classes, instead of forcing all that logic on the PlayerCharacter class.
 
-For instance, the `ClassEntropist` class doesn't need to track arcana, but the `ClassArcanist` class probably does.
+For instance, the `Class_Entropist` class doesn't need to track arcana, but the `ClassArcanist` class probably does.
 The logic for all that will hence be encapsulated entirely within the `ClassArcanist` class.
 """
 
@@ -24,7 +24,7 @@ from lib.core.playerclass import PlayerClass
 from lib.character import PlayerCharacter
 
 
-class ClassArcanist(PlayerClass):
+class Class_Arcanist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Arcanist",
                          level,
@@ -36,7 +36,7 @@ class ClassArcanist(PlayerClass):
         char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassChimerist(PlayerClass):
+class Class_Chimerist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Chimerist",
                          level,
@@ -49,7 +49,7 @@ class ClassChimerist(PlayerClass):
         char.stats.rituals.ritualism = True
 
 
-class ClassDarkblade(PlayerClass):
+class Class_Darkblade(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Darkblade",
                          level,
@@ -63,7 +63,7 @@ class ClassDarkblade(PlayerClass):
         char.stats.can_equip_martial_armor = True
 
 
-class ClassElementalist(PlayerClass):
+class Class_Elementalist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Elementalist",
                          level,
@@ -76,7 +76,7 @@ class ClassElementalist(PlayerClass):
         char.stats.rituals.ritualism = True
 
 
-class ClassEntropist(PlayerClass):
+class Class_Entropist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Entropist",
                          level,
@@ -89,7 +89,7 @@ class ClassEntropist(PlayerClass):
         char.stats.rituals.ritualism = True
 
 
-class ClassFury(PlayerClass):
+class Class_Fury(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Fury",
                          level,
@@ -103,7 +103,7 @@ class ClassFury(PlayerClass):
         char.stats.can_equip_martial_armor = True
 
 
-class ClassGuardian(PlayerClass):
+class Class_Guardian(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Guardian",
                          level,
@@ -117,7 +117,7 @@ class ClassGuardian(PlayerClass):
         char.stats.can_equip_shield = True
 
 
-class ClassLoremaster(PlayerClass):
+class Class_Loremaster(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Loremaster",
                          level,
@@ -129,7 +129,7 @@ class ClassLoremaster(PlayerClass):
         char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassOrator(PlayerClass):
+class Class_Orator(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Orator",
                          level,
@@ -141,7 +141,7 @@ class ClassOrator(PlayerClass):
         char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassRogue(PlayerClass):
+class Class_Rogue(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Rogue",
                          level,
@@ -153,7 +153,7 @@ class ClassRogue(PlayerClass):
         char.stats.breakdown.ip_max += [f"2 ({self.name})"]
 
 
-class ClassSharpshooter(PlayerClass):
+class Class_Sharpshooter(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Sharpshooter",
                          level,
@@ -167,7 +167,7 @@ class ClassSharpshooter(PlayerClass):
         char.stats.can_equip_shield = True
 
 
-class ClassSpiritist(PlayerClass):
+class Class_Spiritist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Spiritist",
                          level,
@@ -180,7 +180,7 @@ class ClassSpiritist(PlayerClass):
         char.stats.rituals.ritualism = True
 
 
-class ClassTinkerer(PlayerClass):
+class Class_Tinkerer(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Tinkerer",
                          level,
@@ -193,7 +193,7 @@ class ClassTinkerer(PlayerClass):
         char.stats.can_start_projects = True
 
 
-class ClassWayfarer(PlayerClass):
+class Class_Wayfarer(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Wayfarer",
                          level,
@@ -205,7 +205,7 @@ class ClassWayfarer(PlayerClass):
         char.stats.breakdown.ip_max += [f"2 ({self.name})"]
 
 
-class ClassWeaponmaster(PlayerClass):
+class Class_Weaponmaster(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Weaponmaster",
                          level,

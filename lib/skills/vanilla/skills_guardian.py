@@ -34,7 +34,7 @@ class Skill_DualShieldbearer(Skill):
         #TODO: not sure if need to implement
 
 
-class SkillFortress(Skill):
+class Skill_Fortress(Skill):
     def __init__(self, level: int):
         super().__init__(
             "Fortress",

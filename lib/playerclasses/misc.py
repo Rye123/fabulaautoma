@@ -2,7 +2,7 @@ from lib.core.playerclass import PlayerClass
 from lib.character import PlayerCharacter
 
 
-class ClassNecromancer(PlayerClass):
+class Class_Necromancer(PlayerClass):
     """
     Since the Necromancer's free benefit increases max HP OR max MP, this is
     indicated upon class instantiation with `increase_hp`.

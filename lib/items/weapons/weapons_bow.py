@@ -2,7 +2,7 @@ from lib.core.item import Weapon
 from lib.core.constants import DamageType, WeaponType
 
 
-class WeaponCrossbow(Weapon):
+class Weapon_Crossbow(Weapon):
     def __init__(self):
         super().__init__(
             "Crossbow", "", 150,
@@ -15,7 +15,7 @@ class WeaponCrossbow(Weapon):
         )
 
 
-class WeaponShortbow(Weapon):
+class Weapon_Shortbow(Weapon):
     def __init__(self):
         super().__init__(
             "Shortbow", "", 200,

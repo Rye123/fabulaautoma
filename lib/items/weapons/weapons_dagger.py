@@ -2,7 +2,7 @@ from lib.core.item import Weapon
 from lib.core.constants import DamageType, WeaponType
 
 
-class WeaponSteelDagger(Weapon):
+class Weapon_SteelDagger(Weapon):
     def __init__(self):
         super().__init__(
             "Steel Dagger", "", 150,

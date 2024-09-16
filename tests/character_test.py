@@ -7,7 +7,7 @@ class TestPlayerCharacter(unittest.TestCase):
 
     def test_lirithid(self):
         lirithid = PlayerCharacter("Lirithid", 10, 6, 10, 6, 10)
-        lirithid.player_classes += [ClassEntropist(6), ClassChimerist(3), ClassWeaponmaster(1)]
+        lirithid.player_classes += [Class_Entropist(6), Class_Chimerist(3), Class_Weaponmaster(1)]
         lirithid.compute()
 
         self.assertEqual(lirithid.stats.hp_max, 45)
@@ -19,7 +19,7 @@ class TestPlayerCharacter(unittest.TestCase):
 
     def test_fengtian(self):
         fengtian = PlayerCharacter("Feng Tian", 5, 10, 10, 6, 6)
-        fengtian.player_classes += [ClassSharpshooter(3), ClassRogue(1), ClassTinkerer(1)]
+        fengtian.player_classes += [Class_Sharpshooter(3), Class_Rogue(1), Class_Tinkerer(1)]
         fengtian.compute()
 
         self.assertEqual(fengtian.stats.hp_max, 40)

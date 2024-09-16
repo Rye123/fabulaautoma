@@ -2,7 +2,7 @@ from lib.core.playerclass import PlayerClass
 from lib.character import PlayerCharacter
 
 
-class ClassChanter(PlayerClass):
+class Class_Chanter(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Chanter",
                          level,
@@ -14,7 +14,7 @@ class ClassChanter(PlayerClass):
         char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassCommander(PlayerClass):
+class Class_Commander(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Commander",
                          level,
@@ -28,7 +28,7 @@ class ClassCommander(PlayerClass):
         char.stats.can_equip_martial_ranged = True
 
 
-class ClassDancer(PlayerClass):
+class Class_Dancer(PlayerClass):
     """
     Since the Dancer's free benefit increases max HP OR max MP, this is
     indicated upon class instantiation with `increase_hp`.
@@ -50,7 +50,7 @@ class ClassDancer(PlayerClass):
             char.stats.breakdown.mp_max += [f"5 ({self.name})"]
 
 
-class ClassSymbolist(PlayerClass):
+class Class_Symbolist(PlayerClass):
     def __init__(self, level: int):
         super().__init__("Symbolist",
                          level,

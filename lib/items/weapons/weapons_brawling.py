@@ -2,7 +2,7 @@ from lib.core.item import Weapon
 from lib.core.constants import DamageType, WeaponType
 
 
-class WeaponUnarmed(Weapon):
+class Weapon_Unarmed(Weapon):
     def __init__(self):
         super().__init__(
             "Unarmed Strike", "Automatically equipped in each empty hand slot.", 0,
@@ -15,7 +15,7 @@ class WeaponUnarmed(Weapon):
         )
 
 
-class WeaponImprovisedMelee(Weapon):
+class Weapon_ImprovisedMelee(Weapon):
     def __init__(self):
         super().__init__(
             "Improvised (Melee)", "Breaks after the attack.", 0,
@@ -28,7 +28,7 @@ class WeaponImprovisedMelee(Weapon):
         )
 
 
-class WeaponIronKnuckle(Weapon):
+class Weapon_IronKnuckle(Weapon):
     def __init__(self):
         super().__init__(
             "Iron Knuckle", "", 150,

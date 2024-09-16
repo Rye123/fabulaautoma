@@ -1,14 +1,14 @@
 from lib.core.item import Shield
 
 
-class ShieldBronzeShield(Shield):
+class Shield_BronzeShield(Shield):
     def __init__(self):
         super().__init__("Bronze Shield", "", 100,
                          False,
                          2, 0, 0)
 
 
-class ShieldRunicShield(Shield):
+class Shield_RunicShield(Shield):
     def __init__(self):
         super().__init__("Runic Shield", "", 150,
                          True,
