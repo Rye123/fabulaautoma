@@ -1,10 +1,13 @@
 # TODO
 This page tracks TODOs and intended features
+- [ ] **Checks**: Not too sure about the structure of Checks yet.
 - [ ] **Character**
   - [ ] Bonds
   - [ ] Traits
-- [ ] **Action Computation**: Automatically compute the possible actions a character has.
-  - This would involve evaluating equipped weapons, backpack contents, learnt spells, and usable skills.
+  - [ ] **Resistance Computation**: Compute resistances based on equipment, skills, classes and so on.
+  - [ ] **Action Computation**: Automatically compute the possible actions a character has.
+    - This would involve evaluating equipped weapons, backpack contents, learnt spells, and usable skills.
+- [ ] **Damage Computation**: Automatically compute the damage done, by computing additional bonuses and maluses based on a base dice roll.
 - [ ] **Player Classes**: This involves implementing both the class and the class-specific skills.
   - [ ] Conventional Classes:
     - [ ] Commander
