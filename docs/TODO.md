@@ -1,0 +1,39 @@
+# TODO
+This page tracks TODOs and intended features
+- [ ] **Character**
+  - [ ] Bonds
+  - [ ] Traits
+- [ ] **Action Computation**: Automatically compute the possible actions a character has.
+  - This would involve evaluating equipped weapons, backpack contents, learnt spells, and usable skills.
+- [ ] **Player Classes**: This involves implementing both the class and the class-specific skills.
+  - [ ] Conventional Classes:
+    - [ ] Commander
+    - [ ] Darkblade
+    - [ ] Fury
+    - [ ] Guardian
+    - [ ] Sharpshooter
+    - [ ] Rogue
+    - [ ] Weaponmaster
+  - [ ] Spell-based Classes:
+    - [ ] Elementalist
+    - [ ] Entropist
+    - [ ] Loremaster
+    - [ ] Orator
+    - [ ] Spiritist
+  - [ ] Classes with unique systems:
+    - [ ] Arcanist (Arcana)
+    - [ ] Chanter (Verses)
+    - [ ] Dancer (Dances)
+    - [ ] Esper (Focus, Gifts)
+    - [ ] Mutant (Theriomorphs)
+    - [ ] Pilot (Personal Vehicle)
+    - [ ] Symbolist (Symbols)
+    - [ ] Tinkerer (Gadgets)
+    - [ ] Wayfarer (Faithful Companion)
+- [ ] **Spells**:
+  - [ ] NPC Spells
+  - [ ] PC Spells (Implemented under Player Classes)
+- [ ] **Skills**:
+  - [ ] Heroic Skills
+  - [ ] NPC Skills
+  - [ ] PC Skills (Implemented under Player Classes)
