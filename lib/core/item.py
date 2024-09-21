@@ -31,6 +31,9 @@ class Accessory(Item):
         report = super().__str__()
         return report
 
+    def apply_stats(self, char: 'Character'):
+        pass
+
 
 class Weapon(Item):
     def __init__(self,
@@ -108,7 +111,7 @@ class Armor(Item):
                 except ValueError:
                     raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
         char.stats.defense_physical = new_def_physical
-        char.stats.breakdown.defense_physical = '(' + "+".join(breakdown_components) + ') (Armor)'
+        char.stats.breakdown.defense_physical = '(' + "+".join(breakdown_components) + f") (Armor: {self.name})"
 
         # Parse magical defense
         mag_components = self.defense_magical.split('+')
@@ -135,10 +138,13 @@ class Armor(Item):
                 except ValueError:
                     raise ValueError(f"Armor.apply_stats: Invalid component in defense string: \"{component}\".")
         char.stats.defense_magical = new_def_magical
-        char.stats.breakdown.defense_magical = '(' + "+".join(breakdown_components) + ') (Armor)'
+        char.stats.breakdown.defense_magical = '(' + "+".join(breakdown_components) + f") (Armor: {self.name})"
 
-        char.stats.initiative += self.initiative_bonus
-        char.stats.breakdown.initiative += [f"+{self.initiative_bonus} (Armor)"]
+        char.stats.initiative_modifier += self.initiative_bonus
+        if self.initiative_bonus < 0:
+            char.stats.breakdown.initiative_modifier += [f"{self.initiative_bonus} (Armor: {self.name})"]
+        else:
+            char.stats.breakdown.initiative_modifier += [f"+{self.initiative_bonus} (Armor: {self.name})"]
 
 
 class Shield(Item):
