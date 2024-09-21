@@ -22,6 +22,14 @@ class DamageType(IntEnum):
     POISON = 8
 
 
+class DamageAffinity(IntEnum):
+    VULNERABILITY = 0
+    NORMAL = 1
+    RESISTANCE = 2
+    IMMUNITY = 3
+    ABSORPTION = 4
+
+
 class ItemType(IntEnum):
     ACCESSORY = 0
     ARMOR = 1

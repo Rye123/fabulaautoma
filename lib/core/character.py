@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from lib.core.dice import Dice
-from lib.core.constants import StatusEffect
+from lib.core.constants import StatusEffect, DamageAffinity
 
 
 class Attributes:
@@ -76,6 +76,16 @@ class Stats:
         - `entropism`
         - `ritualism`
         - `spiritism`
+    - `damage_affinities`:
+        - `physical`
+        - `air`
+        - `bolt`
+        - `dark`
+        - `earth`
+        - `fire`
+        - `ice`
+        - `light`
+        - `poison`
     """
 
     class Rituals:
@@ -83,8 +93,36 @@ class Stats:
             self.arcanism = self.chimerism = self.elementalism = False
             self.entropism = self.ritualism = self.spiritism = False
 
+    class Affinities:
+        def __init__(self):
+            self.physical = DamageAffinity.NORMAL
+            self.air = DamageAffinity.NORMAL
+            self.bolt = DamageAffinity.NORMAL
+            self.dark = DamageAffinity.NORMAL
+            self.earth = DamageAffinity.NORMAL
+            self.fire = DamageAffinity.NORMAL
+            self.ice = DamageAffinity.NORMAL
+            self.light = DamageAffinity.NORMAL
+            self.poison = DamageAffinity.NORMAL
+
+        def __str__(self):
+            return f"{self.physical.value} {self.air.value} {self.bolt.value} {self.dark.value} {self.earth.value} {self.fire.value} {self.ice.value} {self.light.value} {self.poison.value}"
+
     class Breakdown:
         """ Shows the computation of the corresponding value """
+
+        class Affinities:
+            def __init__(self):
+                self.physical = []
+                self.air = []
+                self.bolt = []
+                self.dark = []
+                self.earth = []
+                self.fire = []
+                self.ice = []
+                self.light = []
+                self.poison = []
+
         def __init__(self):
             self.hp_max = []
             self.mp_max = []
@@ -92,6 +130,7 @@ class Stats:
             self.initiative = []
             self.defense_physical = []
             self.defense_magical = []
+            self.affinities = Stats.Breakdown.Affinities()
 
         def reset(self):
             self.hp_max = []
@@ -100,7 +139,7 @@ class Stats:
             self.initiative = []
             self.defense_physical = []
             self.defense_magical = []
-
+            self.affinities = Stats.Breakdown.Affinities()
 
     def __init__(self):
         self.hp = self.mp = self.ip = 0
@@ -111,6 +150,7 @@ class Stats:
         self.can_equip_martial_ranged = self.can_equip_shield = False
         self.can_start_projects = False
         self.rituals = Stats.Rituals()
+        self.affinities = Stats.Affinities()
         self.breakdown = Stats.Breakdown()
 
     @property
@@ -148,6 +188,7 @@ class Character(ABC):
             f"\n\tHP: {self.stats.hp}/{self.stats.hp_max}  (CRISIS: {self.stats.in_crisis})" + \
             f"\n\tMP: {self.stats.mp}/{self.stats.mp_max}" + \
             f"\n\tIP: {self.stats.ip}/{self.stats.ip_max}" + \
+            f"\n\tAffinities: {self.stats.affinities}" + \
             f"\n\tInitiative: {self.stats.initiative}" + \
             f"\n\tDefense: {self.stats.defense_physical}" + \
             f"\n\tMagical Defense: {self.stats.defense_magical}"
