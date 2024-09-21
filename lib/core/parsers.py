@@ -191,8 +191,11 @@ def parse_defense_string(defense: str) -> str:
     keywords = sorted(keywords)
     if len(keywords) != 0:
         res_defense += "+".join(keywords)
-    if bonus != 0:
-        res_defense += f"+{bonus}"
+        if bonus != 0:
+            res_defense += f"+{bonus}"
+    else:
+        if bonus != 0:
+            res_defense += f"{bonus}"
 
     return res_defense
 

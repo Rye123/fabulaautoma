@@ -116,6 +116,10 @@ class DefenseTestCase(unittest.TestCase):
             parse_defense_string("MIG"),
             "MIG"
         )
+        self.assertEqual(
+            parse_defense_string("12"),
+            "12"
+        )
 
         # Sums
         self.assertEqual(
