@@ -1,10 +1,8 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from lib.core.character import Character
+from lib.core.action import Action
 
-#TODO: to implement new actions, so probably need to scan
-#TODO: through all skills -- maybe the skill would have an add_action method
-#TODO: that...adds an action. but we haven't implemented actions yet
-#TODO: each class probably has a class-specific attribute (e.g. esper has focus)
+
 class Skill(ABC):
     def __init__(self, name: str, desc: str,
                  level: int = 0, max_level: int = 1):
@@ -14,7 +12,18 @@ class Skill(ABC):
         self.max_level = max_level
 
     def apply_stats(self, char: Character):
+        """ Apply this skill's modifiers to the character's stats. """
+        pass
+
+    def add_actions(self, char: Character):
+        """ Add any potential new actions this skill gives to the character. """
         pass
 
     def __str__(self) -> str:
         return f"{self.name} (SL{self.level}/{self.max_level})"
+
+
+class Action_Skill(Action):
+    def __init__(self, skill: Skill):
+        super().__init__(f"Use Skill: {skill.name}", skill.desc)
+        #TODO: not sure what else to add, depends on what skills are available

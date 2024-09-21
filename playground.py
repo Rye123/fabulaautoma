@@ -27,16 +27,16 @@ class Weapon_BreakerBladeV1(Weapon):
 
 
 if __name__ == "__main__":
-    lirithid = PlayerCharacter("Lirithid", 10, 6, 10, 6, 10)
-    lirithid.player_classes += [Class_Entropist(6), Class_Chimerist(3), Class_Weaponmaster(1)]
-    lirithid.compute()
-    print(lirithid)
+    # lirithid = PlayerCharacter("Lirithid", 10, 6, 10, 6, 10)
+    # lirithid.player_classes += [Class_Entropist(6), Class_Chimerist(3), Class_Weaponmaster(1)]
+    # lirithid.compute()
+    # print(lirithid)
 
-    print("---")
-    fengtian = PlayerCharacter("Feng Tian", 5, 10, 10, 6, 6)
-    fengtian.player_classes += [Class_Sharpshooter(3), Class_Rogue(1), Class_Tinkerer(1)]
-    fengtian.compute()
-    print(fengtian)
+    # print("---")
+    # fengtian = PlayerCharacter("Feng Tian", 5, 10, 10, 6, 6)
+    # fengtian.player_classes += [Class_Sharpshooter(3), Class_Rogue(1), Class_Tinkerer(1)]
+    # fengtian.compute()
+    # print(fengtian)
 
     print("---")
     icaris = PlayerCharacter("Icaris", 10, 8, 8, 10, 6)
@@ -46,35 +46,25 @@ if __name__ == "__main__":
     icaris.compute()
     print(icaris)
 
-    print("---")
-    chroma = PlayerCharacter("Chroma Aber", 10, 6, 10, 6, 10)
-    chroma.player_classes += [Class_Tinkerer(6), Class_Loremaster(4)]
-    chroma.equipment.main_hand = Weapon_SteelDagger()
-    chroma.equipment.off_hand = Weapon_Shuriken()
-    chroma.skills += [
-        Skill_Gadgets(4), Skill_SecretFormula(1),
-        Skill_KnowledgeIsPower(1), Skill_TrainedMemory(1),
-        Skill_QuickAssessment(1), Skill_Focused(1)
-    ]
-    chroma.compute()
-    print(chroma)
+    # print("---")
+    # chroma = PlayerCharacter("Chroma Aber", 10, 6, 10, 6, 10)
+    # chroma.player_classes += [Class_Tinkerer(6), Class_Loremaster(4)]
+    # chroma.equipment.main_hand = Weapon_SteelDagger()
+    # chroma.equipment.off_hand = Weapon_Shuriken()
+    # chroma.skills += [
+    #     Skill_Gadgets(4), Skill_SecretFormula(1),
+    #     Skill_KnowledgeIsPower(1), Skill_TrainedMemory(1),
+    #     Skill_QuickAssessment(1), Skill_Focused(1)
+    # ]
+    # chroma.compute()
+    # print(chroma)
 
-    print("---")
-    nova = PlayerCharacter("NoVA", 10, 6, 10, 10, 6)
-    nova.player_classes += [Class_Darkblade(6), Class_Guardian(1), Class_Spiritist(3)]
-    nova.skills += [
-        Skill_Agony(2), Skill_DarkBlood(1), Skill_HeartOfDarkness(1), Skill_PainfulLesson(1), Skill_ShadowStrike(1),
-        Skill_Protect(1), Skill_SpiritualMagic(2), Skill_Vismagus(1)
-    ]
-    nova.compute()
-    print(nova)
-
-    print("---")
-    skill_issue = PlayerCharacter("Skill Issue", 10, 8, 8, 8, 8)
-    skill_issue.player_classes += [Class_Guardian(5), Class_Loremaster(5)]
-    skill_issue.skills += [
-        Skill_Fortress(3), Skill_DefensiveMastery(1), Skill_Protect(1),
-        Skill_Focused(3), Skill_KnowledgeIsPower(1), Skill_QuickAssessment(1)
-    ]
-    skill_issue.compute()
-    print(skill_issue)
+    # print("---")
+    # nova = PlayerCharacter("NoVA", 10, 6, 10, 10, 6)
+    # nova.player_classes += [Class_Darkblade(6), Class_Guardian(1), Class_Spiritist(3)]
+    # nova.skills += [
+    #     Skill_Agony(2), Skill_DarkBlood(1), Skill_HeartOfDarkness(1), Skill_PainfulLesson(1), Skill_ShadowStrike(1),
+    #     Skill_Protect(1), Skill_SpiritualMagic(2), Skill_Vismagus(1)
+    # ]
+    # nova.compute()
+    # print(nova)

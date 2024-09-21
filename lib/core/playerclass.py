@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from lib.core.character import Character
 
 
@@ -10,7 +10,10 @@ class PlayerClass(ABC):
         self.level = level
         self.desc = desc
 
-    @abstractmethod
     def apply_stats(self, char: 'Character'):
         """ Applies the effects of this class on the character's stats """
-        raise NotImplementedError()
+        pass
+
+    def add_actions(self, char: Character):
+        """ Add any potential new actions this skill gives to the character. """
+        pass

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 from lib.core.dice import Dice
 from lib.core.constants import StatusEffect, DamageAffinity
 
@@ -252,6 +253,7 @@ class Character(ABC):
         self.level = level
         self.attributes = Attributes(dex, ins, mig, wlp)
         self.stats = Stats()
+        self.actions = []
 
     @abstractmethod
     def compute(self):

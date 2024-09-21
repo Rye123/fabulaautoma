@@ -2,6 +2,13 @@ from abc import ABC, abstractmethod
 from lib.core.character import Character
 from lib.core.constants import ItemType, WeaponType, DamageType
 from lib.core.parsers import parse_accuracy_string, parse_damage_string, parse_defense_string
+from lib.core.action import Action
+
+
+class Action_Attack(Action):
+    def __init__(self, weapon: 'Weapon'):
+        type_of_atk = "melee" if weapon.weapon_type == WeaponType.MELEE else "ranged"
+        super().__init__(f"Attack ({weapon.name})", f"Perform a {type_of_atk} attack.")
 
 
 class Item(ABC):
@@ -13,6 +20,12 @@ class Item(ABC):
 
     @abstractmethod
     def apply_stats(self, char: 'Character'):
+        """ Applies modifiers of this item on the character's stats """
+        raise NotImplementedError()
+
+    @abstractmethod
+    def add_actions(self, char: 'Character'):
+        """ Adds potential new actions based on this item to the character. """
         raise NotImplementedError()
 
     def __str__(self):
@@ -32,6 +45,9 @@ class Accessory(Item):
         return report
 
     def apply_stats(self, char: 'Character'):
+        pass
+
+    def add_actions(self, char: 'Character'):
         pass
 
 
@@ -66,6 +82,9 @@ class Weapon(Item):
 
     def apply_stats(self, char: Character):
         pass
+
+    def add_actions(self, char: 'Character'):
+        char.actions.append(Action_Attack(self))
 
 
 class Armor(Item):
@@ -146,6 +165,9 @@ class Armor(Item):
         else:
             char.stats.breakdown.initiative_modifier += [f"+{self.initiative_bonus} (Armor: {self.name})"]
 
+    def add_actions(self, char: 'Character'):
+        pass
+
 
 class Shield(Item):
     def __init__(self, name: str, desc: str, cost: int,
@@ -170,3 +192,10 @@ class Shield(Item):
         char.stats.breakdown.defense_magical += [f"{self.defense_magical_bonus} (Shield)"]
         char.stats.initiative += self.initiative_bonus
         char.stats.breakdown.initiative += [f"{self.initiative_bonus} (Shield)"]
+
+    def add_actions(self, char: 'Character'):
+        pass
+
+
+
+

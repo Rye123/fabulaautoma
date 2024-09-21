@@ -10,6 +10,9 @@ from lib.core.character import Character
 from lib.core.playerclass import PlayerClass
 from lib.core.item import Item
 from lib.core.skill import Skill
+from lib.core.action import Action
+from lib.core.action import Action_Equipment, Action_Guard, Action_Hinder, Action_Inventory
+from lib.core.action import Action_Objective, Action_Study, Action_Other
 
 
 class Equipment:
@@ -42,6 +45,17 @@ class Equipment:
         if self.off_hand is not None:
             self.off_hand.apply_stats(char)
 
+    def add_actions(self, char: 'Character'):
+        """ Adds any actions available based on the currently equipped set of items """
+        if self.accessory is not None:
+            self.accessory.add_actions(char)
+        if self.armor is not None:
+            self.armor.add_actions(char)
+        if self.main_hand is not None:
+            self.main_hand.add_actions(char)
+        if self.off_hand is not None:
+            self.off_hand.add_actions(char)
+
 
 class PlayerCharacter(Character):
     def __init__(self,
@@ -53,6 +67,7 @@ class PlayerCharacter(Character):
         self.player_classes: List[PlayerClass] = []
         self.equipment = Equipment()
         self.skills: List[Skill] = []
+        self.actions: List[Action] = []
 
     def compute(self):
         self.stats.breakdown.reset()
@@ -73,18 +88,25 @@ class PlayerCharacter(Character):
         self.stats.initiative_modifier = 0
         self.stats.breakdown.initiative_modifier = []
 
-        # Apply stats based on classes
+        # Add basic actions
+        self.actions += [
+            Action_Equipment(), Action_Guard(), Action_Hinder(), Action_Inventory(),
+            Action_Objective(), Action_Study(), Action_Other()
+        ]
+
+        # Apply stats and get actions based on classes
         for player_class in self.player_classes:
             player_class.apply_stats(self)
+            player_class.add_actions(self)
 
-        # Apply stats based on skills
-        #TODO: not sure whether skills should be grouped under PlayerClass or under PlayerCharacter, since
-        #TODO: NPC skills are class-independent (since NPCs...don't have classes)
+        # Apply stats and get actions based on skills
         for skill in self.skills:
             skill.apply_stats(self)
+            skill.add_actions(self)
 
-        # Apply stats based on equipment
+        # Apply stats and get actions based on equipment
         self.equipment.apply_stats(self)
+        self.equipment.add_actions(self)
 
     def __str__(self) -> str:
         report = super().__str__()
@@ -104,7 +126,11 @@ class PlayerCharacter(Character):
             for skill in self.skills:
                 report += f"\n\t{skill}"
 
-        #TODO: report player skills
+        if len(self.actions) > 0:
+            report += "\nActions:"
+            for action in self.actions:
+                report += f"\n\t{action}"
+
         return report
 
 
@@ -116,6 +142,7 @@ class NonPlayerCharacter(Character):
         super().__init__(name, level, dex, ins, mig, wlp)
         self.equipment = Equipment()
         self.skills: List[Skill] = []
+        self.actions: List[Action] = []
 
     def compute(self):
         self.stats.breakdown.reset()
@@ -136,12 +163,20 @@ class NonPlayerCharacter(Character):
         self.stats.initiative_modifier = 0
         self.stats.breakdown.initiative_modifier = []
 
-        # Apply stats based on skills
+        # Add basic actions
+        self.actions += [
+            Action_Equipment(), Action_Guard(), Action_Hinder(), Action_Inventory(),
+            Action_Objective(), Action_Study(), Action_Other()
+        ]
+
+        # Apply stats and get actions based on skills
         for skill in self.skills:
             skill.apply_stats(self)
+            skill.add_actions(self)
 
-        # Apply stats based on equipment
+        # Apply stats and get actions based on equipment
         self.equipment.apply_stats(self)
+        self.equipment.add_actions(self)
 
     def __str__(self) -> str:
         report = super().__str__()
