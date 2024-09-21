@@ -99,7 +99,7 @@ class Stats:
             self.arcanism = arcanism
             self.chimerism = chimerism
             self.elementalism = elementalism
-            self.entropism = entropism,
+            self.entropism = entropism
             self.ritualism = ritualism
             self.spiritism = spiritism
 
@@ -112,6 +112,22 @@ class Stats:
                     and (self.entropism == other.entropism)
                     and (self.ritualism == other.ritualism)
                     and (self.spiritism == other.spiritism))
+
+        def __str__(self) -> str:
+            report = []
+            if self.arcanism:
+                report.append("Arcanism")
+            if self.chimerism:
+                report.append("Chimerism")
+            if self.elementalism:
+                report.append("Elementalism")
+            if self.entropism:
+                report.append("Entropism")
+            if self.ritualism:
+                report.append("Ritualism")
+            if self.spiritism:
+                report.append("Spiritism")
+            return ",".join(report)
 
     class Affinities:
         def __init__(self):
