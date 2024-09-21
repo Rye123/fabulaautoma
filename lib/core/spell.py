@@ -10,6 +10,13 @@ class Action_Spell(Action):
         super().__init__(f"Use Spell: {spell.name}", spell.desc)
 
 
+#TODO: consider the following edge cases:
+#      - variable MP (Gamble)
+#      - damage against MP (Drain Spirit)
+#      - variable damage (Omega)
+#      - other effects (Enrage, Hallucination, Torpor)
+#TODO: consider varying target types
+#TODO: consider opportunity effects
 class Spell(ABC):
     def __init__(self, name: str, desc: str, offensive: bool,
                  mp_per_target: int, max_targets: int, target_type: str, duration: str,

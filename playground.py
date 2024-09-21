@@ -27,6 +27,19 @@ class Weapon_BreakerBladeV1(Weapon):
 
 
 if __name__ == "__main__":
+    import lib.skills.vanilla.skills_elementalist as skills_elementalist
+    import lib.spells.vanilla.spells_elementalist as spells_elementalist
+    test_char = PlayerCharacter("Potato", 10, 6, 10, 6, 10)
+    test_char.player_classes = [Class_Elementalist(5)]
+    test_char.skills = [skills_elementalist.Skill_RitualElementalism(1),
+                        skills_elementalist.Skill_ElementalMagic(4)]
+    test_char.spells = [spells_elementalist.Spell_Fulgur(), spells_elementalist.Spell_Ventus(),
+                        spells_elementalist.Spell_Terra(), spells_elementalist.Spell_Vortex()]
+    test_char.equipment.main_hand = Weapon_SteelDagger()
+    test_char.compute()
+    print(test_char)
+
+
     # lirithid = PlayerCharacter("Lirithid", 10, 6, 10, 6, 10)
     # lirithid.player_classes += [Class_Entropist(6), Class_Chimerist(3), Class_Weaponmaster(1)]
     # lirithid.compute()
@@ -38,13 +51,13 @@ if __name__ == "__main__":
     # fengtian.compute()
     # print(fengtian)
 
-    print("---")
-    icaris = PlayerCharacter("Icaris", 10, 8, 8, 10, 6)
-    icaris.player_classes += [Class_Weaponmaster(4), Class_Entropist(3), Class_Pilot(3)]
-    icaris.equipment.main_hand = Weapon_BreakerBladeV1()
-    icaris.equipment.armor = Armor_CombatTunic()
-    icaris.compute()
-    print(icaris)
+    # print("---")
+    # icaris = PlayerCharacter("Icaris", 10, 8, 8, 10, 6)
+    # icaris.player_classes += [Class_Weaponmaster(4), Class_Entropist(3), Class_Pilot(3)]
+    # icaris.equipment.main_hand = Weapon_BreakerBladeV1()
+    # icaris.equipment.armor = Armor_CombatTunic()
+    # icaris.compute()
+    # print(icaris)
 
     # print("---")
     # chroma = PlayerCharacter("Chroma Aber", 10, 6, 10, 6, 10)
