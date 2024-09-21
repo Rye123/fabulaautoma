@@ -68,8 +68,10 @@ class PlayerCharacter(Character):
         self.stats.breakdown.defense_physical = [f"{self.attributes.dex_base} (DEX)"]
         self.stats.defense_magical = self.attributes.ins_base.value
         self.stats.breakdown.defense_magical = [f"{self.attributes.ins_base} (INS)"]
-        self.stats.initiative = 10
-        self.stats.breakdown.initiative = [f"10 (Base)"]
+        self.stats.initiative = 0
+        self.stats.breakdown.initiative = []
+        self.stats.initiative_modifier = 0
+        self.stats.breakdown.initiative_modifier = []
 
         # Apply stats based on classes
         for player_class in self.player_classes:
@@ -131,6 +133,8 @@ class NonPlayerCharacter(Character):
         self.stats.breakdown.defense_magical = [f"{self.attributes.ins_base} (INS)"]
         self.stats.initiative = (self.attributes.dex_base.value + self.attributes.ins_base.value) // 2
         self.stats.breakdown.initiative = [f"({self.attributes.dex_base} (DEX) + {self.attributes.ins_base} (INS)) // 2"]
+        self.stats.initiative_modifier = 0
+        self.stats.breakdown.initiative_modifier = []
 
         # Apply stats based on skills
         for skill in self.skills:

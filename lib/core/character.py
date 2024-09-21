@@ -89,9 +89,29 @@ class Stats:
     """
 
     class Rituals:
-        def __init__(self):
-            self.arcanism = self.chimerism = self.elementalism = False
-            self.entropism = self.ritualism = self.spiritism = False
+        def __init__(self,
+                     arcanism: bool = False,
+                     chimerism: bool = False,
+                     elementalism: bool = False,
+                     entropism: bool = False,
+                     ritualism: bool = False,
+                     spiritism: bool = False):
+            self.arcanism = arcanism
+            self.chimerism = chimerism
+            self.elementalism = elementalism
+            self.entropism = entropism,
+            self.ritualism = ritualism
+            self.spiritism = spiritism
+
+        def __eq__(self, other: 'Stats.Rituals') -> bool:
+            if not isinstance(other, Stats.Rituals):
+                return False
+            return ((self.arcanism == other.arcanism)
+                    and (self.chimerism == other.chimerism)
+                    and (self.elementalism == other.elementalism)
+                    and (self.entropism == other.entropism)
+                    and (self.ritualism == other.ritualism)
+                    and (self.spiritism == other.spiritism))
 
     class Affinities:
         def __init__(self):
@@ -104,6 +124,19 @@ class Stats:
             self.ice = DamageAffinity.NORMAL
             self.light = DamageAffinity.NORMAL
             self.poison = DamageAffinity.NORMAL
+
+        def __eq__(self, other: 'Stats.Affinities'):
+            if not isinstance(other, Stats.Affinities):
+                return False
+            return ((self.physical == other.physical)
+                    and (self.air == other.air)
+                    and (self.bolt == other.bolt)
+                    and (self.dark == other.dark)
+                    and (self.earth == other.earth)
+                    and (self.fire == other.fire)
+                    and (self.ice == other.ice)
+                    and (self.light == other.light)
+                    and (self.poison == other.poison))
 
         def __str__(self):
             return f"{self.physical.value} {self.air.value} {self.bolt.value} {self.dark.value} {self.earth.value} {self.fire.value} {self.ice.value} {self.light.value} {self.poison.value}"
@@ -128,6 +161,7 @@ class Stats:
             self.mp_max = []
             self.ip_max = []
             self.initiative = []
+            self.initiative_modifier = []
             self.defense_physical = []
             self.defense_magical = []
             self.affinities = Stats.Breakdown.Affinities()
@@ -137,6 +171,7 @@ class Stats:
             self.mp_max = []
             self.ip_max = []
             self.initiative = []
+            self.initiative_modifier = []
             self.defense_physical = []
             self.defense_magical = []
             self.affinities = Stats.Breakdown.Affinities()
@@ -145,6 +180,7 @@ class Stats:
         self.hp = self.mp = self.ip = 0
         self.hp_max = self.mp_max = self.ip_max = 0
         self.initiative = 0
+        self.initiative_modifier = 0
         self.defense_physical = self.defense_magical = 0
         self.can_equip_martial_armor = self.can_equip_martial_melee = False
         self.can_equip_martial_ranged = self.can_equip_shield = False
@@ -189,14 +225,14 @@ class Character(ABC):
             f"\n\tMP: {self.stats.mp}/{self.stats.mp_max}" + \
             f"\n\tIP: {self.stats.ip}/{self.stats.ip_max}" + \
             f"\n\tAffinities: {self.stats.affinities}" + \
-            f"\n\tInitiative: {self.stats.initiative}" + \
+            f"\n\tInitiative: {self.stats.initiative} (Modifier: {self.stats.initiative_modifier})" + \
             f"\n\tDefense: {self.stats.defense_physical}" + \
             f"\n\tMagical Defense: {self.stats.defense_magical}"
         report += "\nStats Calculation:" + \
             f"\n\tHP Max: {self.stats.breakdown.hp_max}" + \
             f"\n\tMP Max: {self.stats.breakdown.mp_max}" + \
             f"\n\tIP Max: {self.stats.breakdown.ip_max}" + \
-            f"\n\tInitiative: {self.stats.breakdown.initiative}" + \
+            f"\n\tInitiative: {self.stats.breakdown.initiative} (Modifier: {self.stats.breakdown.initiative_modifier})" + \
             f"\n\tDefense: {self.stats.breakdown.defense_physical}" + \
             f"\n\tMagical Defense: {self.stats.breakdown.defense_magical}"
         return report
