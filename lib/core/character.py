@@ -254,6 +254,7 @@ class Character(ABC):
         self.attributes = Attributes(dex, ins, mig, wlp)
         self.stats = Stats()
         self.actions = []
+        self.spells = []
 
     @abstractmethod
     def compute(self):

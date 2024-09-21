@@ -10,6 +10,7 @@ from lib.core.character import Character
 from lib.core.playerclass import PlayerClass
 from lib.core.item import Item
 from lib.core.skill import Skill
+from lib.core.spell import Spell
 from lib.core.action import Action
 from lib.core.action import Action_Equipment, Action_Guard, Action_Hinder, Action_Inventory
 from lib.core.action import Action_Objective, Action_Study, Action_Other
@@ -67,6 +68,7 @@ class PlayerCharacter(Character):
         self.player_classes: List[PlayerClass] = []
         self.equipment = Equipment()
         self.skills: List[Skill] = []
+        self.spells: List[Spell] = []
         self.actions: List[Action] = []
 
     def compute(self):
@@ -103,6 +105,11 @@ class PlayerCharacter(Character):
         for skill in self.skills:
             skill.apply_stats(self)
             skill.add_actions(self)
+
+        # Apply spells and get actions based on spells
+        for spell in self.spells:
+            spell.apply_stats(self)
+            spell.add_actions(self)
 
         # Apply stats and get actions based on equipment
         self.equipment.apply_stats(self)
@@ -142,6 +149,7 @@ class NonPlayerCharacter(Character):
         super().__init__(name, level, dex, ins, mig, wlp)
         self.equipment = Equipment()
         self.skills: List[Skill] = []
+        self.spells: List[Spell] = []
         self.actions: List[Action] = []
 
     def compute(self):
@@ -173,6 +181,11 @@ class NonPlayerCharacter(Character):
         for skill in self.skills:
             skill.apply_stats(self)
             skill.add_actions(self)
+
+        # Apply spells and get actions based on spells
+        for spell in self.spells:
+            spell.apply_stats(self)
+            spell.add_actions(self)
 
         # Apply stats and get actions based on equipment
         self.equipment.apply_stats(self)

@@ -49,14 +49,6 @@ class Action_Objective(Action):
         super().__init__("Objective", "You perform an Attribute/Opposed Check to work towards accomplishing an objective.")
 
 
-class Action_Spell(Action):
-    def __init__(self):
-        super().__init__("Spell", "")
-        #TODO: spell class
-        #TODO: don't show spells that can't be cast (e.g. with MP check)?
-        #TODO: MOVE to spell.py once that is created
-
-
 class Action_Study(Action):
     def __init__(self):
         super().__init__("Study", "You attempt to gain information about someone or something.")
