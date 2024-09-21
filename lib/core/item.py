@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from lib.core.character import Character
 from lib.core.constants import ItemType, WeaponType, DamageType
-from lib.core.parsers import parse_accuracy_string, parse_damage_string, parse_defense_string
+from lib.core.parsers import parse_accuracy_string, parse_defense_string
 from lib.core.action import Action
+from lib.core.damage import Damage
 
 
 class Action_Attack(Action):
@@ -69,15 +70,14 @@ class Weapon(Item):
         self.weapon_type = weapon_type
         self.two_handed = two_handed
         self.accuracy = parse_accuracy_string(accuracy)
-        self.damage = parse_damage_string(damage)
-        self.damage_type = damage_type
+        self.damage = Damage(damage, damage_type)
 
     def __str__(self):
         report = super().__str__()
         report += f"\n\tMartial: {'YES' if self.martial else 'NO'}"
         report += f"\n\tTwo-Handed: {'YES' if self.two_handed else 'NO'}"
         report += f"\n\tAccuracy: {self.accuracy}"
-        report += f"\n\tDamage: {self.damage} {self.damage_type.name.lower()}"
+        report += f"\n\tDamage: {self.damage}"
         return report
 
     def apply_stats(self, char: Character):

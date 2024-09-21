@@ -1,4 +1,4 @@
-from enum import IntEnum
+from enum import IntEnum, StrEnum
 
 
 class StatusEffect(IntEnum):
@@ -10,16 +10,16 @@ class StatusEffect(IntEnum):
     WEAK     = 5  # Reduces Might by 1 size
 
 
-class DamageType(IntEnum):
-    PHYSICAL = 0
-    AIR = 1
-    BOLT = 2
-    DARK = 3
-    EARTH = 4
-    FIRE = 5
-    ICE = 6
-    LIGHT = 7
-    POISON = 8
+class DamageType(StrEnum):
+    PHYSICAL = "PHYSICAL"
+    AIR = "AIR"
+    BOLT = "BOLT"
+    DARK = "DARK"
+    EARTH = "EARTH"
+    FIRE = "FIRE"
+    ICE = "ICE"
+    LIGHT = "LIGHT"
+    POISON = "POISON"
 
 
 class DamageAffinity(IntEnum):
