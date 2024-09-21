@@ -157,6 +157,36 @@ class Stats:
         def __str__(self):
             return f"{self.physical.value} {self.air.value} {self.bolt.value} {self.dark.value} {self.earth.value} {self.fire.value} {self.ice.value} {self.light.value} {self.poison.value}"
 
+    class MartialEquip:
+        def __init__(self,
+                     armor: bool = False,
+                     shield: bool = False,
+                     melee: bool = False, ranged: bool = False):
+            self.armor = armor
+            self.shield = shield
+            self.melee = melee
+            self.ranged = ranged
+
+        def __eq__(self, other: 'Stats.MartialEquip'):
+            if not isinstance(other, Stats.MartialEquip):
+                return False
+            return ((self.armor == other.armor)
+                    and (self.shield == other.shield)
+                    and (self.melee == other.melee)
+                    and (self.ranged == other.ranged))
+
+        def __str__(self) -> str:
+            report = []
+            if self.armor:
+                report.append("Armor")
+            if self.melee:
+                report.append("Melee")
+            if self.ranged:
+                report.append("Ranged")
+            if self.shield:
+                report.append("Shield")
+            return ",".join(report)
+
     class Breakdown:
         """ Shows the computation of the corresponding value """
 
@@ -198,9 +228,8 @@ class Stats:
         self.initiative = 0
         self.initiative_modifier = 0
         self.defense_physical = self.defense_magical = 0
-        self.can_equip_martial_armor = self.can_equip_martial_melee = False
-        self.can_equip_martial_ranged = self.can_equip_shield = False
         self.can_start_projects = False
+        self.martial_equip = Stats.MartialEquip()
         self.rituals = Stats.Rituals()
         self.affinities = Stats.Affinities()
         self.breakdown = Stats.Breakdown()
@@ -243,7 +272,8 @@ class Character(ABC):
             f"\n\tAffinities: {self.stats.affinities}" + \
             f"\n\tInitiative: {self.stats.initiative} (Modifier: {self.stats.initiative_modifier})" + \
             f"\n\tDefense: {self.stats.defense_physical}" + \
-            f"\n\tMagical Defense: {self.stats.defense_magical}"
+            f"\n\tMagical Defense: {self.stats.defense_magical}" + \
+            f"\n\tCan Equip Martial: {self.stats.martial_equip}"
         report += "\nStats Calculation:" + \
             f"\n\tHP Max: {self.stats.breakdown.hp_max}" + \
             f"\n\tMP Max: {self.stats.breakdown.mp_max}" + \

@@ -59,8 +59,8 @@ class Class_Darkblade(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
-        char.stats.can_equip_martial_melee = True
-        char.stats.can_equip_martial_armor = True
+        char.stats.martial_equip.melee = True
+        char.stats.martial_equip.armor = True
 
 
 class Class_Elementalist(PlayerClass):
@@ -99,8 +99,8 @@ class Class_Fury(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
-        char.stats.can_equip_martial_melee = True
-        char.stats.can_equip_martial_armor = True
+        char.stats.martial_equip.melee = True
+        char.stats.martial_equip.armor = True
 
 
 class Class_Guardian(PlayerClass):
@@ -113,8 +113,8 @@ class Class_Guardian(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
-        char.stats.can_equip_martial_armor = True
-        char.stats.can_equip_shield = True
+        char.stats.martial_equip.armor = True
+        char.stats.martial_equip.shield = True
 
 
 class Class_Loremaster(PlayerClass):
@@ -163,8 +163,8 @@ class Class_Sharpshooter(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
-        char.stats.can_equip_martial_ranged = True
-        char.stats.can_equip_shield = True
+        char.stats.martial_equip.martial_ranged = True
+        char.stats.martial_equip.shield = True
 
 
 class Class_Spiritist(PlayerClass):
@@ -215,8 +215,8 @@ class Class_Weaponmaster(PlayerClass):
     def apply_stats(self, char: PlayerCharacter):
         char.stats.hp_max += 5
         char.stats.breakdown.hp_max += [f"5 ({self.name})"]
-        char.stats.can_equip_martial_melee = True
-        char.stats.can_equip_shield = True
+        char.stats.martial_equip.melee = True
+        char.stats.martial_equip.shield = True
 
 
 
